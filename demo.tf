@@ -24,6 +24,16 @@ resource "aws_instance" "codetocloud" {
   depends_on = [aws_internet_gateway.gw]
 }
 
+resource "aws_instance" "addserver" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+  network_interface {
+    network_interface_id = aws_network_interface.demo_nic.id
+    device_index         = 0
+  }
+  depends_on = [aws_internet_gateway.gw]
+}
+
 resource "aws_vpc" "demo_vpc" {
   cidr_block = "172.16.0.0/16"
 }

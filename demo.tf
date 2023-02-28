@@ -23,21 +23,27 @@ resource "aws_instance" "codetocloud" {
   }
   depends_on = [aws_internet_gateway.gw]
   tags = {
-    git_org = "jpecora716"
+    git_org   = "jpecora716"
+    git_repo  = "code-to-cloud"
+    yor_trace = "691624f4-1cac-4c7c-8b20-e83918cffd96"
   }
 }
 
 resource "aws_vpc" "demo_vpc" {
   cidr_block = "172.16.0.0/16"
   tags = {
-    git_org = "jpecora716"
+    git_org   = "jpecora716"
+    git_repo  = "code-to-cloud"
+    yor_trace = "475faa1a-a9bd-4359-b469-63c593de3356"
   }
 }
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.demo_vpc.id
   tags = {
-    git_org = "jpecora716"
+    git_org   = "jpecora716"
+    git_repo  = "code-to-cloud"
+    yor_trace = "14b2c7df-1599-4540-89b9-86c99e942b10"
   }
 }
 
@@ -46,7 +52,9 @@ resource "aws_subnet" "demo_subnet" {
   cidr_block        = "172.16.10.0/24"
   availability_zone = "us-east-1a"
   tags = {
-    git_org = "jpecora716"
+    git_org   = "jpecora716"
+    git_repo  = "code-to-cloud"
+    yor_trace = "0d4dd7d9-5437-4a31-b4a7-04374ea3484c"
   }
 }
 
@@ -55,7 +63,9 @@ resource "aws_network_interface" "demo_nic" {
   security_groups = [aws_security_group.demo_ssh.id]
   private_ips     = ["172.16.10.100"]
   tags = {
-    git_org = "jpecora716"
+    git_org   = "jpecora716"
+    git_repo  = "code-to-cloud"
+    yor_trace = "299c64c3-1580-406a-b9bc-7b6868a45968"
   }
 }
 
@@ -81,6 +91,8 @@ resource "aws_security_group" "demo_ssh" {
     ipv6_cidr_blocks = ["::/0"]
   }
   tags = {
-    git_org = "jpecora716"
+    git_org   = "jpecora716"
+    git_repo  = "code-to-cloud"
+    yor_trace = "d1e5d29b-8a4d-43d5-82a7-4b9afc49a27a"
   }
 }

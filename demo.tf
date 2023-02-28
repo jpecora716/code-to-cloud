@@ -28,7 +28,7 @@ resource "aws_instance" "addserver" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
   network_interface {
-    network_interface_id = aws_network_interface.demo_nic.id
+    network_interface_id = aws_network_interface.addserver_nic.id
     device_index         = 0
   }
   depends_on = [aws_internet_gateway.gw]
@@ -52,6 +52,12 @@ resource "aws_network_interface" "demo_nic" {
   subnet_id       = aws_subnet.demo_subnet.id
   security_groups = [aws_security_group.demo_ssh.id]
   private_ips     = ["172.16.10.100"]
+}
+
+resource "aws_network_interface" "addserver_nic" {
+  subnet_id       = aws_subnet.demo_subnet.id
+  security_groups = [aws_security_group.demo_ssh.id]
+  private_ips     = ["172.16.10.101"]
 }
 
 resource "aws_security_group" "demo_ssh" {

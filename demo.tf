@@ -22,26 +22,41 @@ resource "aws_instance" "codetocloud" {
     device_index         = 0
   }
   depends_on = [aws_internet_gateway.gw]
+  tags = {
+    git_org = "jpecora716"
+  }
 }
 
 resource "aws_vpc" "demo_vpc" {
   cidr_block = "172.16.0.0/16"
+  tags = {
+    git_org = "jpecora716"
+  }
 }
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.demo_vpc.id
+  tags = {
+    git_org = "jpecora716"
+  }
 }
 
 resource "aws_subnet" "demo_subnet" {
   vpc_id            = aws_vpc.demo_vpc.id
   cidr_block        = "172.16.10.0/24"
   availability_zone = "us-east-1a"
+  tags = {
+    git_org = "jpecora716"
+  }
 }
 
 resource "aws_network_interface" "demo_nic" {
   subnet_id       = aws_subnet.demo_subnet.id
   security_groups = [aws_security_group.demo_ssh.id]
   private_ips     = ["172.16.10.100"]
+  tags = {
+    git_org = "jpecora716"
+  }
 }
 
 resource "aws_security_group" "demo_ssh" {
@@ -64,5 +79,8 @@ resource "aws_security_group" "demo_ssh" {
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
+  }
+  tags = {
+    git_org = "jpecora716"
   }
 }

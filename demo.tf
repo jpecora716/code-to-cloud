@@ -13,6 +13,16 @@ resource "aws_instance" "codetocloud" {
   }
 }
 
+resource "aws_instance" "addserver" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+  network_interface {
+    network_interface_id = aws_network_interface.addserver_nic.id
+    device_index         = 0
+  }
+  depends_on = [aws_internet_gateway.gw]
+}
+
 resource "aws_vpc" "demo_vpc" {
   cidr_block = "172.16.0.0/16"
   tags = {
@@ -51,6 +61,12 @@ resource "aws_network_interface" "demo_nic" {
     git_repo  = "code-to-cloud"
     yor_trace = "299c64c3-1580-406a-b9bc-7b6868a45968"
   }
+}
+
+resource "aws_network_interface" "addserver_nic" {
+  subnet_id       = aws_subnet.demo_subnet.id
+  security_groups = [aws_security_group.demo_ssh.id]
+  private_ips     = ["172.16.10.101"]
 }
 
 resource "aws_security_group" "demo_ssh" {

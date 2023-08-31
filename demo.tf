@@ -20,7 +20,10 @@ resource "aws_vpc" "demo_vpc" {
     git_repo  = "code-to-cloud"
     yor_trace = "475faa1a-a9bd-4359-b469-63c593de3356"
   }
+  enable_dns_hostnames = false
+  enable_dns_support = true
 }
+
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.demo_vpc.id
